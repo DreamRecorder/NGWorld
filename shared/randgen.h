@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RANDGEN_H
-#define RANDGEN_H
+#ifndef _RANDGEN_H_
+#define _RANDGEN_H_
 
 #include <immintrin.h>
 class RandGen
@@ -94,7 +94,7 @@ public:
     unsigned int get_u32();
 };
 
-#if (defined NEWORLD_TARGET_MACOSX) && (defined __RDRND__)
+#if (defined __GNUC__) && (defined __RDRND__)
 // Intel的RNRAND硬件随机数生成器
 class IntelRandGen : public RandGen
 {

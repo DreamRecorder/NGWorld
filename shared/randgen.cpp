@@ -202,7 +202,7 @@ unsigned int LinearRandGen::get_u32()
     return v;
 }
 
-#if (defined NEWORLD_TARGET_MACOSX) && (defined __RDRND__)
+#if (defined __GNUC__) && (defined __RDRND__)
 unsigned int IntelRandGen::get_u32()
 {
     _rdrand32_step(&value);
