@@ -1,5 +1,5 @@
 # NGWorld
-[NEWorld](https://github.com/Infinideastudio/NEWorld)激发了我用C++和OpenGL制作一个Minecraft的复刻的兴趣。
+[NEWorld](https://github.com/Infinideastudio/NEWorld)激发了我用C++和OpenGL制作一个Minecraft的复刻的兴趣。慢步地走在草地上，和陷在一滩没有边际的沼泽里挣扎，你要选择哪一个？
 
 这是一个**实验研究性**项目，作者可能会在数据结构、算法、常数优化、图形渲染上面来来回回地花费很多工夫，做一些benchmark实验，写一写论文什么的。这**不是**实用性项目。
 
