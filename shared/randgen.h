@@ -48,6 +48,10 @@ public:
     double get_double_co(); // returns double value in [0, 1)
     double get_double_cc(); // returns double value in [0, 1]
     double get_double_ranged(double x, double y); // [x, y)
+
+    // 随机性测试
+    bool is_evenly_distributed(); // 01分布均匀性测试
+    bool monte_carlo_calc_pi(); // 蒙特卡洛随机落点测试
 };
 
 class MersenneRandGen : public RandGen

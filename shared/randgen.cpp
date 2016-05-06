@@ -17,7 +17,10 @@
  */
 
 #include "RandGen.h"
-#include <algorithm>
+#include "fundamental_algorithm.h"
+#include <iostream>
+#include <cstdlib>
+#include <cmath>
 #include <ctime>
 using namespace std;
 
@@ -86,6 +89,52 @@ double RandGen::get_double_ranged(double x, double y)
     if(x > y)
         swap(x, y);
     return x + (y - x) * get_double_co();
+}
+
+bool RandGen::is_evenly_distributed()
+{
+    int c0 = 0, c1 = 0;
+    unsigned int value;
+    int i, j, exps = 65536;
+    
+    // 测试2^16个样本
+    // 在i5-5250U上花费20ms-22ms左右 (-mrdrnd, -O2)
+    for(i = 0; i < exps; i++) 
+    {
+        value = get_u32();
+        for(j = 0; j < 32; j++)
+        {
+            if(value & 1)
+                ++c1;
+            else
+                ++c0;
+            value >>= 1;
+        }
+    }
+    if(c0 > c1)
+        swap(c0, c1);
+    //cout << (c1-c0)*1.0 / c1 << endl;
+    return ((c1-c0)*1.0 / c1 <= 0.005); // 只允许c0和c1之间相差c1的0.5%以内
+}
+
+// 蒙特卡洛测试结果
+// Mersenne Twister: 误差0.003左右 耗时7ms
+// 线性同余: 误差0.001-0.004波动 耗时6ms
+// Intel硬件随机数生成器: 误差0.0006-0.005波动 耗时15ms
+// 最终结论: 随机数生成器是一门玄学，给予的输入种子、线性同余中的因子和加量、周围电磁环境对随机数都有很大的影响。
+bool RandGen::monte_carlo_calc_pi()
+{
+    double x, y;
+    int count = 0, exps = 16384;
+    for(int i = 0; i < exps; i++)
+    {
+        x = get_double_cc();
+        y = get_double_cc();
+        if(x*x + y*y <= 1.0)
+            ++count;
+    }
+    //cout << fabs(count * 1.0 / exps - 0.7853981634) << endl;
+    return (fabs(count * 1.0 / exps - 0.7853981634) <= 0.01); // 只允许模拟结果和pi/4之间存在1%以内的误差
 }
 
 // Mersenne Twister Random Number Generation Algorithm

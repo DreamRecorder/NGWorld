@@ -29,3 +29,4 @@ u64 bkdr_hash(const string &str, u64 magic_constant = 131)
         result = result * magic_constant + str[i];
     return result;
 }
+
