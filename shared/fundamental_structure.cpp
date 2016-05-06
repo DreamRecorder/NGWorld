@@ -122,4 +122,99 @@ Vector3D<T>& Vector3D<T>::operator /= (const T &arg)
     return *this;
 }
 
+template<typename T>
+Vector2D<T> Vector2D<T>::operator + (const Vector2D<T> &arg) const
+{
+    return Vector2D<T>(x + arg.x, y + arg.y);
+}
+
+template<typename T>
+Vector2D<T>& Vector2D<T>::operator += (const Vector2D<T> &arg)
+{
+    x += arg.x;
+    y += arg.y;
+    return *this;
+}
+
+template<typename T>
+Vector2D<T> Vector2D<T>::operator + (const T &arg) const
+{
+    return Vector2D<T>(x + arg, y + arg);
+}
+
+template<typename T>
+Vector2D<T>& Vector2D<T>::operator += (const T &arg)
+{
+    x += arg;
+    y += arg;
+    return *this;
+}
+
+template<typename T>
+Vector2D<T> Vector2D<T>::operator - (const Vector2D<T> &arg) const
+{
+    return Vector2D<T>(x - arg.x, y - arg.y);
+}
+
+template<typename T>
+Vector2D<T>& Vector2D<T>::operator -= (const Vector2D<T> &arg)
+{
+    x -= arg.x;
+    y -= arg.y;
+    return *this;
+}
+
+template<typename T>
+Vector2D<T> Vector2D<T>::operator - (const T &arg) const
+{
+    return Vector2D<T>(x - arg, y - arg);
+}
+
+template<typename T>
+Vector2D<T>& Vector2D<T>::operator -= (const T &arg)
+{
+    x -= arg;
+    y -= arg;
+    return *this;
+}
+
+template<typename T>
+T Vector2D<T>::dot(const Vector2D<T> &arg)
+{
+    return x * arg.x + y * arg.y;
+}
+
+template<typename T>
+Vector3D<T> Vector2D<T>::cross(const Vector2D<T> &arg)
+{
+    return Vector3D<T>(0, 0, x * arg.y - arg.x * y);
+}
+
+template<typename T>
+Vector2D<T> Vector2D<T>::operator * (const T &arg) const
+{
+    return Vector2D<T>(x * arg, y * arg);
+}
+
+template<typename T>
+Vector2D<T>& Vector2D<T>::operator *= (const T &arg)
+{
+    x *= arg;
+    y *= arg;
+    return *this;
+}
+
+template<typename T>
+Vector2D<T> Vector2D<T>::operator / (const T &arg) const
+{
+    return Vector2D<T>(x / arg, y / arg);
+}
+
+template<typename T>
+Vector2D<T>& Vector2D<T>::operator /= (const T &arg)
+{
+    x /= arg;
+    y /= arg;
+    return *this;
+}
 
