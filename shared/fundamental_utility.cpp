@@ -26,8 +26,6 @@
 #error NGWorld support for Windows platform is not implemented yet.
 #endif
 
-using namespace NGWorld;
-
 void OSLayer::sleep_us(const int &us)
 {
 #ifdef NGWORLD_OS_UNIX

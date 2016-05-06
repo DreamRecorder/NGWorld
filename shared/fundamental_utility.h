@@ -21,14 +21,11 @@
 
 #include "fundamental_macros.h"
 
-namespace NGWorld
+namespace OSLayer
 {
-    namespace OSLayer
-    {
-        void sleep_us(const int &us);
-        void sleep_ms(const int &ms);
-        void sleep_s(const int &s);
-    }
+    void sleep_us(const int &us);
+    void sleep_ms(const int &ms);
+    void sleep_s(const int &s);
 }
 
 #endif
