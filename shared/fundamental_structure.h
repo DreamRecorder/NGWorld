@@ -33,27 +33,37 @@ class Vector3D
 {
     public:
         T x, y, z;
-        Vector3D<T>()
-            :x(), y(), z()
-        { };
-        Vector3D<T>(T ix, T iy, T iz)
-            :x(ix), y(iy), z(iz)
-        { }
-        ~Vector3D<T>()
-        { }
-        Vector3D<T>& operator += (const Vector3D<T>& add)
-        {
-            x += add.x;
-            y += add.y;
-            z += add.z;
-            return *this;
-        }
-        Vector3D<T> operator + (const Vector3D<T>& add) const
-        {
-            Vector3D<T> ret = *this;
-            ret += add;
-            return ret;
-        }
+        Vector3D<T>() : x(), y(), z() { }
+        Vector3D<T>(T ix, T iy, T iz) : x(ix), y(iy), z(iz) { }
+        ~Vector3D<T>() { }
+
+        // 向量和向量相加
+        Vector3D<T> operator + (const Vector3D<T> &arg) const;
+        Vector3D<T>& operator += (const Vector3D<T> &add);
+        // 向量和标量相加
+        Vector3D<T> operator + (const T &arg) const;
+        Vector3D<T>& operator += (const T &arg);
+        
+        // 向量和向量相减
+        Vector3D<T> operator - (const Vector3D<T> &arg) const;
+        Vector3D<T>& operator -= (const Vector3D<T> &add);
+        // 向量和标量相减
+        Vector3D<T> operator - (const T &arg) const;
+        Vector3D<T>& operator -= (const T &arg);
+
+        // 点乘
+        T dot(const Vector3D<T> &arg);
+
+        // 叉乘
+        Vector3D<T> cross(const Vector3D<T> &arg);
+        
+        // 向量与标量相乘
+        Vector3D<T> operator * (const T &arg) const;
+        Vector3D<T>& operator *= (const T &arg);
+
+        // 向量与标量相除
+        Vector3D<T> operator / (const T &arg) const;
+        Vector3D<T>& operator /= (const T &arg);
 };
 
 typedef Vector3D<s16> v3s16;
