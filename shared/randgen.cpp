@@ -96,10 +96,10 @@ bool RandGen::is_evenly_distributed()
     int c0 = 0, c1 = 0;
     unsigned int value;
     int i, j, exps = 65536;
-    
+
     // 测试2^16个样本
     // 在i5-5250U上花费20ms-22ms左右 (-mrdrnd, -O2)
-    for(i = 0; i < exps; i++) 
+    for(i = 0; i < exps; i++)
     {
         value = get_u32();
         for(j = 0; j < 32; j++)

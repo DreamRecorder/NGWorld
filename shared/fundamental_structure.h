@@ -43,7 +43,7 @@ class Vector3D
         // 向量和标量相加
         Vector3D<T> operator + (const T &arg) const;
         Vector3D<T>& operator += (const T &arg);
-        
+
         // 向量和向量相减
         Vector3D<T> operator - (const Vector3D<T> &arg) const;
         Vector3D<T>& operator -= (const Vector3D<T> &add);
@@ -56,7 +56,7 @@ class Vector3D
 
         // 叉乘
         Vector3D<T> cross(const Vector3D<T> &arg);
-        
+
         // 向量与标量相乘
         Vector3D<T> operator * (const T &arg) const;
         Vector3D<T>& operator *= (const T &arg);
@@ -81,7 +81,7 @@ class Vector2D
         // 向量和标量相加
         Vector2D<T> operator + (const T &arg) const;
         Vector2D<T>& operator += (const T &arg);
-        
+
         // 向量和向量相减
         Vector2D<T> operator - (const Vector2D<T> &arg) const;
         Vector2D<T>& operator -= (const Vector2D<T> &add);
@@ -94,7 +94,7 @@ class Vector2D
 
         // 叉乘 [注意:得到一个三维的向量]
         Vector3D<T> cross(const Vector2D<T> &arg);
-        
+
         // 向量与标量相乘
         Vector2D<T> operator * (const T &arg) const;
         Vector2D<T>& operator *= (const T &arg);
