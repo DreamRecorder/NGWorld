@@ -19,7 +19,7 @@
 #include "fundamental_algorithm.h"
 using namespace std;
 
-u64 bkdr_hash(const string &str, u64 magic_constant = 131)
+u64 bkdr_hash(const string &str, u64 magic_constant)
 {
     // 此处采用BKDR哈希算法
     // 参考文献: The C Programming Language
@@ -30,3 +30,11 @@ u64 bkdr_hash(const string &str, u64 magic_constant = 131)
     return result;
 }
 
+u32 crc32(const void *buf, int len)
+{
+    u32 ret = 0xFFFFFFFF;
+    const u8 *p = static_cast<const u8*>(buf);
+    for(int i = 0; i < len; i++)
+        ret = crc_32_tab[((ret & 0xFF) ^ *p++)] ^ (ret >> 8);
+    return (ret ^ 0xFFFFFFFF);
+}
