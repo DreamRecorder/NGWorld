@@ -31,83 +31,83 @@ typedef unsigned long long u64;
 template<typename T = int>
 class Vector3D
 {
-    public:
-        T x, y, z;
-        Vector3D<T>() : x(), y(), z() { }
-        Vector3D<T>(T _x, T _y, T _z) : x(_x), y(_y), z(_z) { }
-        ~Vector3D<T>() { }
-
-        // 向量和向量相加
-        Vector3D<T> operator + (const Vector3D<T> &arg) const;
-        Vector3D<T>& operator += (const Vector3D<T> &add);
-        // 向量和标量相加
-        Vector3D<T> operator + (const T &arg) const;
-        Vector3D<T>& operator += (const T &arg);
-
-        // 向量和向量相减
-        Vector3D<T> operator - (const Vector3D<T> &arg) const;
-        Vector3D<T>& operator -= (const Vector3D<T> &add);
-        // 向量和标量相减
-        Vector3D<T> operator - (const T &arg) const;
-        Vector3D<T>& operator -= (const T &arg);
-
-        // 点乘
-        T dot(const Vector3D<T> &arg);
-
-        // 叉乘
-        Vector3D<T> cross(const Vector3D<T> &arg);
-
-        // 向量与标量相乘
-        Vector3D<T> operator * (const T &arg) const;
-        Vector3D<T>& operator *= (const T &arg);
-
-        // 向量与标量相除
-        Vector3D<T> operator / (const T &arg) const;
-        Vector3D<T>& operator /= (const T &arg);
-
-        // 按照x-y-z的顺序比较大小
-        bool operator < (const Vector3D<T> &arg) const
-        {
-            return (x < arg.x) || (x == arg.x && y < arg.y) || (x == arg.x && y == arg.y && z < arg.z);
-        }
+public:
+    T x, y, z;
+    Vector3D<T>() : x(), y(), z() { }
+    Vector3D<T>(T _x, T _y, T _z) : x(_x), y(_y), z(_z) { }
+    ~Vector3D<T>() { }
+    
+    // 向量和向量相加
+    Vector3D<T> operator + (const Vector3D<T> &arg) const;
+    Vector3D<T>& operator += (const Vector3D<T> &add);
+    // 向量和标量相加
+    Vector3D<T> operator + (const T &arg) const;
+    Vector3D<T>& operator += (const T &arg);
+    
+    // 向量和向量相减
+    Vector3D<T> operator - (const Vector3D<T> &arg) const;
+    Vector3D<T>& operator -= (const Vector3D<T> &add);
+    // 向量和标量相减
+    Vector3D<T> operator - (const T &arg) const;
+    Vector3D<T>& operator -= (const T &arg);
+    
+    // 点乘
+    T dot(const Vector3D<T> &arg);
+    
+    // 叉乘
+    Vector3D<T> cross(const Vector3D<T> &arg);
+    
+    // 向量与标量相乘
+    Vector3D<T> operator * (const T &arg) const;
+    Vector3D<T>& operator *= (const T &arg);
+    
+    // 向量与标量相除
+    Vector3D<T> operator / (const T &arg) const;
+    Vector3D<T>& operator /= (const T &arg);
+    
+    // 按照x-y-z的顺序比较大小
+    bool operator < (const Vector3D<T> &arg) const
+    {
+        return (x < arg.x) || (x == arg.x && y < arg.y) || (x == arg.x && y == arg.y && z < arg.z);
+    }
 };
 
 template<typename T = int>
 class Vector2D
 {
-    public:
-        T x, y;
-        Vector2D<T>() : x(), y() { }
-        Vector2D<T>(T _x, T _y) : x(_x), y(_y) { }
-        ~Vector2D<T>() { }
-
-        // 向量和向量相加
-        Vector2D<T> operator + (const Vector2D<T> &arg) const;
-        Vector2D<T>& operator += (const Vector2D<T> &add);
-        // 向量和标量相加
-        Vector2D<T> operator + (const T &arg) const;
-        Vector2D<T>& operator += (const T &arg);
-
-        // 向量和向量相减
-        Vector2D<T> operator - (const Vector2D<T> &arg) const;
-        Vector2D<T>& operator -= (const Vector2D<T> &add);
-        // 向量和标量相减
-        Vector2D<T> operator - (const T &arg) const;
-        Vector2D<T>& operator -= (const T &arg);
-
-        // 点乘
-        T dot(const Vector2D<T> &arg);
-
-        // 叉乘 [注意:得到一个三维的向量]
-        Vector3D<T> cross(const Vector2D<T> &arg);
-
-        // 向量与标量相乘
-        Vector2D<T> operator * (const T &arg) const;
-        Vector2D<T>& operator *= (const T &arg);
-
-        // 向量与标量相除
-        Vector2D<T> operator / (const T &arg) const;
-        Vector2D<T>& operator /= (const T &arg);
+public:
+    T x, y;
+    Vector2D<T>() : x(), y() { }
+    Vector2D<T>(T _x, T _y) : x(_x), y(_y) { }
+    ~Vector2D<T>() { }
+    
+    // 向量和向量相加
+    Vector2D<T> operator + (const Vector2D<T> &arg) const;
+    Vector2D<T>& operator += (const Vector2D<T> &add);
+    // 向量和标量相加
+    Vector2D<T> operator + (const T &arg) const;
+    Vector2D<T>& operator += (const T &arg);
+    
+    // 向量和向量相减
+    Vector2D<T> operator - (const Vector2D<T> &arg) const;
+    Vector2D<T>& operator -= (const Vector2D<T> &add);
+    // 向量和标量相减
+    Vector2D<T> operator - (const T &arg) const;
+    Vector2D<T>& operator -= (const T &arg);
+    
+    // 点乘
+    T dot(const Vector2D<T> &arg);
+    
+    // 叉乘 [注意:得到一个三维的向量]
+    Vector3D<T> cross(const Vector2D<T> &arg);
+    
+    // 向量与标量相乘
+    Vector2D<T> operator * (const T &arg) const;
+    Vector2D<T>& operator *= (const T &arg);
+    
+    // 向量与标量相除
+    Vector2D<T> operator / (const T &arg) const;
+    Vector2D<T>& operator /= (const T &arg);
 };
 
 typedef Vector2D<s16> v2s16;
