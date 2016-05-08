@@ -17,6 +17,7 @@
  */
 
 #include "fundamental_algorithm.h"
+#include <cmath>
 using namespace std;
 
 u64 bkdr_hash(const string &str, u64 magic_constant)
@@ -38,3 +39,34 @@ u32 crc32(const void *buf, int len)
         ret = crc_32_tab[((ret & 0xFF) ^ *p++)] ^ (ret >> 8);
     return (ret ^ 0xFFFFFFFF);
 }
+
+#ifdef NGWORLD_USE_OWN_MATH_FX
+double ngw_sin_fast(double x)
+{
+    /*
+    另一种方法(但是比下面实际采用的方法慢1/3)
+    constexpr double tp = 1./(2.0*3.1415926);
+    x *= tp;
+    x -= 0.25 + std::floor(x + 0.25);
+    x *= 16.0 * (std::abs(x) - 0.5);
+    //x += T(.225) * x * (std::abs(x) - T(1.));
+    return x;
+    */
+    const double B = 1.2732395447;
+    const double C = -0.4052847346;
+    const double P = 0.2310792853;//0.225;
+    double y = B * x + C * x * abs(x);
+    y = P * (y * abs(y) - y) + y;
+    return y;
+}
+
+double ngw_cos_fast(double x)
+{
+    const double Q = 1.5707963268;
+    const double PI =3.1415926536;
+    x += Q;
+    if(x > PI)
+        x -= 2 * PI;
+    return(ngw_sin_fast(x));
+}
+#endif

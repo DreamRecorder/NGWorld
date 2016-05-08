@@ -20,7 +20,7 @@
 #define _FUNDAMENTAL_ALGORITHM_H_
 
 #include <string>
-#include "fundamental_structure.h"
+#include "fundamental_types.h"
 
 // 计算字符串str的BKDR哈希值
 u64 bkdr_hash(const std::string &str, u64 magic_constant = 131);
@@ -84,5 +84,11 @@ static const u32 crc_32_tab[] =
 
 // 计算[buf, buf+len)的CRC32值
 u32 crc32(const void *buf, int len);
+
+#ifdef NGWORLD_USE_OWN_MATH_FX
+// O(1)复杂度快速计算三角函数的近似值
+double ngw_sin_fast(double x);
+double ngw_cos_fast(double x);
+#endif
 
 #endif

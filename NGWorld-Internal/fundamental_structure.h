@@ -20,15 +20,7 @@
 #define _FUNDAMENTAL_STRUCTURE_H_
 
 #include <cmath>
-
-typedef char s8;
-typedef unsigned char u8;
-typedef short s16;
-typedef unsigned short u16;
-typedef int s32;
-typedef unsigned int u32;
-typedef long long s64;
-typedef unsigned long long u64;
+#include "fundamental_algorithm.h"
 
 template <typename T = int>
 class Vector3D
@@ -313,8 +305,13 @@ template<typename T>
 void Vector2D<T>::rotate(const double &angle)
 {
     T orig_x = x, orig_y = y;
+#ifdef NGWORLD_USE_OWN_MATH_FX
+    x = orig_x * ngw_cos_fast(angle) - orig_y * ngw_sin_fast(angle);
+    y = orig_x * ngw_sin_fast(angle) - orig_y * ngw_cos_fast(angle);
+#else
     x = orig_x * cos(angle) - orig_y * sin(angle);
     y = orig_x * sin(angle) - orig_y * cos(angle);
+#endif
 }
 
 typedef Vector2D<s16> v2s16;

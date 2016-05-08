@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E27955A31CDF61C5004D8144 /* fundamental_types.h in Headers */ = {isa = PBXBuildFile; fileRef = E27955A21CDF61C5004D8144 /* fundamental_types.h */; };
 		E2A717221CDF0FA500751EAC /* compress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2A717141CDF0FA500751EAC /* compress.cpp */; };
 		E2A717231CDF0FA500751EAC /* compress.h in Headers */ = {isa = PBXBuildFile; fileRef = E2A717151CDF0FA500751EAC /* compress.h */; };
 		E2A717241CDF0FA500751EAC /* fundamental_algorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2A717161CDF0FA500751EAC /* fundamental_algorithm.cpp */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E27955A21CDF61C5004D8144 /* fundamental_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fundamental_types.h; sourceTree = "<group>"; };
 		E2A7170D1CDF0F7900751EAC /* libNGWorld-Internal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libNGWorld-Internal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2A717141CDF0FA500751EAC /* compress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = compress.cpp; sourceTree = "<group>"; };
 		E2A717151CDF0FA500751EAC /* compress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = compress.h; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				E2A717311CDF0FCA00751EAC /* QuickLZ */,
 				E2A717141CDF0FA500751EAC /* compress.cpp */,
 				E2A717151CDF0FA500751EAC /* compress.h */,
+				E27955A21CDF61C5004D8144 /* fundamental_types.h */,
 				E2A717161CDF0FA500751EAC /* fundamental_algorithm.cpp */,
 				E2A717171CDF0FA500751EAC /* fundamental_algorithm.h */,
 				E2A717181CDF0FA500751EAC /* fundamental_macros.h */,
@@ -122,6 +125,7 @@
 				E2A7172A1CDF0FA500751EAC /* fundamental_utility.h in Headers */,
 				E2F86FB11CDF2A0A00E4E1C6 /* lz4.h in Headers */,
 				E2A717231CDF0FA500751EAC /* compress.h in Headers */,
+				E27955A31CDF61C5004D8144 /* fundamental_types.h in Headers */,
 				E2A717261CDF0FA500751EAC /* fundamental_macros.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
