@@ -25,7 +25,7 @@ u64 bkdr_hash(const string &str, u64 magic_constant)
     // 参考文献: The C Programming Language
     // -- Brian Kernighan & Dennis Ritchie
     u64 result = 0;
-    for(int i = 0, size = str.size(); i < size; i++)
+    for(size_t i = 0, size = str.size(); i < size; i++)
         result = result * magic_constant + str[i];
     return result;
 }

@@ -18,3 +18,8 @@ install_manifest.txt
 
 # Local handy unit test sources
 *unittest.cpp
+
+# Xcode files
+Build/
+DerivedData/
+xcuserdata/

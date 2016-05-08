@@ -122,6 +122,14 @@ Vector3D<T>& Vector3D<T>::operator /= (const T &arg)
     return *this;
 }
 
+/*
+template<typename T>
+bool Vector3D<T>::operator < (const Vector3D<T> &arg) const
+{
+    return (x < arg.x) || (x == arg.x && y < arg.y) || (x == arg.x && y == arg.y && z < arg.z);
+}
+*/
+
 template<typename T>
 Vector2D<T> Vector2D<T>::operator + (const Vector2D<T> &arg) const
 {

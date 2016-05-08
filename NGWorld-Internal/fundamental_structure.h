@@ -64,6 +64,12 @@ class Vector3D
         // 向量与标量相除
         Vector3D<T> operator / (const T &arg) const;
         Vector3D<T>& operator /= (const T &arg);
+
+        // 按照x-y-z的顺序比较大小
+        bool operator < (const Vector3D<T> &arg) const
+        {
+            return (x < arg.x) || (x == arg.x && y < arg.y) || (x == arg.x && y == arg.y && z < arg.z);
+        }
 };
 
 template<typename T = int>
