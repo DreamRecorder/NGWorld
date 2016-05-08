@@ -19,6 +19,8 @@
 #ifndef _FUNDAMENTAL_STRUCTURE_H_
 #define _FUNDAMENTAL_STRUCTURE_H_
 
+#include <cmath>
+
 typedef char s8;
 typedef unsigned char u8;
 typedef short s16;
@@ -28,7 +30,7 @@ typedef unsigned int u32;
 typedef long long s64;
 typedef unsigned long long u64;
 
-template<typename T = int>
+template <typename T = int>
 class Vector3D
 {
 public:
@@ -64,15 +66,9 @@ public:
     // 向量与标量相除
     Vector3D<T> operator / (const T &arg) const;
     Vector3D<T>& operator /= (const T &arg);
-    
-    // 按照x-y-z的顺序比较大小
-    bool operator < (const Vector3D<T> &arg) const
-    {
-        return (x < arg.x) || (x == arg.x && y < arg.y) || (x == arg.x && y == arg.y && z < arg.z);
-    }
 };
 
-template<typename T = int>
+template <typename T = int>
 class Vector2D
 {
 public:
@@ -108,7 +104,218 @@ public:
     // 向量与标量相除
     Vector2D<T> operator / (const T &arg) const;
     Vector2D<T>& operator /= (const T &arg);
+    
+    // 将向量沿着逆时针方向旋转angle(弧度制)度
+    void rotate(const double &angle);
 };
+
+template<typename T>
+Vector3D<T> Vector3D<T>::operator + (const Vector3D<T> &arg) const
+{
+    return Vector3D<T>(x + arg.x, y + arg.y, z + arg.z);
+}
+
+template<typename T>
+Vector3D<T>& Vector3D<T>::operator += (const Vector3D<T> &arg)
+{
+    x += arg.x;
+    y += arg.y;
+    z += arg.z;
+    return *this;
+}
+
+template<typename T>
+Vector3D<T> Vector3D<T>::operator + (const T &arg) const
+{
+    return Vector3D<T>(x + arg, y + arg, z + arg);
+}
+
+template<typename T>
+Vector3D<T>& Vector3D<T>::operator += (const T &arg)
+{
+    x += arg;
+    y += arg;
+    z += arg;
+    return *this;
+}
+
+template<typename T>
+Vector3D<T> Vector3D<T>::operator - (const Vector3D<T> &arg) const
+{
+    return Vector3D<T>(x - arg.x, y - arg.y, z - arg.z);
+}
+
+template<typename T>
+Vector3D<T>& Vector3D<T>::operator -= (const Vector3D<T> &arg)
+{
+    x -= arg.x;
+    y -= arg.y;
+    z -= arg.z;
+    return *this;
+}
+
+template<typename T>
+Vector3D<T> Vector3D<T>::operator - (const T &arg) const
+{
+    return Vector3D<T>(x - arg, y - arg, z - arg);
+}
+
+template<typename T>
+Vector3D<T>& Vector3D<T>::operator -= (const T &arg)
+{
+    x -= arg;
+    y -= arg;
+    z -= arg;
+    return *this;
+}
+
+template<typename T>
+T Vector3D<T>::dot(const Vector3D<T> &arg)
+{
+    return x * arg.x + y * arg.y + z * arg.z;
+}
+
+template<typename T>
+Vector3D<T> Vector3D<T>::cross(const Vector3D<T> &arg)
+{
+    return Vector3D(y * arg.z - z * arg.y,
+                    z * arg.x - x * arg.z,
+                    x * arg.y - y * arg.x);
+}
+
+template<typename T>
+Vector3D<T> Vector3D<T>::operator * (const T &arg) const
+{
+    return Vector3D<T>(x * arg, y * arg, z * arg);
+}
+
+template<typename T>
+Vector3D<T>& Vector3D<T>::operator *= (const T &arg)
+{
+    x *= arg;
+    y *= arg;
+    z *= arg;
+    return *this;
+}
+
+template<typename T>
+Vector3D<T> Vector3D<T>::operator / (const T &arg) const
+{
+    return Vector3D<T>(x / arg, y / arg, z / arg);
+}
+
+template<typename T>
+Vector3D<T>& Vector3D<T>::operator /= (const T &arg)
+{
+    x /= arg;
+    y /= arg;
+    z /= arg;
+    return *this;
+}
+
+template<typename T>
+Vector2D<T> Vector2D<T>::operator + (const Vector2D<T> &arg) const
+{
+    return Vector2D<T>(x + arg.x, y + arg.y);
+}
+
+template<typename T>
+Vector2D<T>& Vector2D<T>::operator += (const Vector2D<T> &arg)
+{
+    x += arg.x;
+    y += arg.y;
+    return *this;
+}
+
+template<typename T>
+Vector2D<T> Vector2D<T>::operator + (const T &arg) const
+{
+    return Vector2D<T>(x + arg, y + arg);
+}
+
+template<typename T>
+Vector2D<T>& Vector2D<T>::operator += (const T &arg)
+{
+    x += arg;
+    y += arg;
+    return *this;
+}
+
+template<typename T>
+Vector2D<T> Vector2D<T>::operator - (const Vector2D<T> &arg) const
+{
+    return Vector2D<T>(x - arg.x, y - arg.y);
+}
+
+template<typename T>
+Vector2D<T>& Vector2D<T>::operator -= (const Vector2D<T> &arg)
+{
+    x -= arg.x;
+    y -= arg.y;
+    return *this;
+}
+
+template<typename T>
+Vector2D<T> Vector2D<T>::operator - (const T &arg) const
+{
+    return Vector2D<T>(x - arg, y - arg);
+}
+
+template<typename T>
+Vector2D<T>& Vector2D<T>::operator -= (const T &arg)
+{
+    x -= arg;
+    y -= arg;
+    return *this;
+}
+
+template<typename T>
+T Vector2D<T>::dot(const Vector2D<T> &arg)
+{
+    return x * arg.x + y * arg.y;
+}
+
+template<typename T>
+Vector3D<T> Vector2D<T>::cross(const Vector2D<T> &arg)
+{
+    return Vector3D<T>(0, 0, x * arg.y - arg.x * y);
+}
+
+template<typename T>
+Vector2D<T> Vector2D<T>::operator * (const T &arg) const
+{
+    return Vector2D<T>(x * arg, y * arg);
+}
+
+template<typename T>
+Vector2D<T>& Vector2D<T>::operator *= (const T &arg)
+{
+    x *= arg;
+    y *= arg;
+    return *this;
+}
+
+template<typename T>
+Vector2D<T> Vector2D<T>::operator / (const T &arg) const
+{
+    return Vector2D<T>(x / arg, y / arg);
+}
+
+template<typename T>
+Vector2D<T>& Vector2D<T>::operator /= (const T &arg)
+{
+    x /= arg;
+    y /= arg;
+    return *this;
+}
+
+template<typename T>
+void Vector2D<T>::rotate(const double &angle)
+{
+    T orig_x = x, orig_y = y;
+    x = orig_x * cos(angle) - orig_y * sin(angle);
+    y = orig_x * sin(angle) - orig_y * cos(angle);
+}
 
 typedef Vector2D<s16> v2s16;
 typedef Vector2D<s32> v2s32;
@@ -121,5 +328,17 @@ typedef Vector3D<s32> v3s32;
 typedef Vector3D<s64> v3s64;
 typedef Vector3D<float> v3f;
 typedef Vector3D<double> v3d;
+
+// 按照x-y的顺序比较二维向量
+template <typename T>
+bool compare_vector_2d(const Vector2D<T> &left, const Vector2D<T> &right);
+
+// 按照x-y-z的顺序比较三维向量
+template <typename T>
+bool compare_vector_3d(const Vector3D<T> &left, const Vector3D<T> &right);
+
+// 按照x-z-y的顺序比较三维向量
+template <typename T>
+bool compare_vector_3d_xzy(const Vector3D<T> &left, const Vector3D<T> &right);
 
 #endif

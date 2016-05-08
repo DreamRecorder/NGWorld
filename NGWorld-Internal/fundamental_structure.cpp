@@ -17,212 +17,24 @@
  */
 
 #include "fundamental_structure.h"
+using namespace std;
 
-template<typename T>
-Vector3D<T> Vector3D<T>::operator + (const Vector3D<T> &arg) const
+template <typename T>
+bool compare_vector_2d(const Vector2D<T> &left, const Vector2D<T> &right)
 {
-    return Vector3D<T>(x + arg.x, y + arg.y, z + arg.z);
+    return (left.x < right.x) || (left.x == right.x && left.y < right.y);
 }
 
-template<typename T>
-Vector3D<T>& Vector3D<T>::operator += (const Vector3D<T> &arg)
+template <typename T>
+bool compare_vector_3d(const Vector3D<T> &left, const Vector3D<T> &right)
 {
-    x += arg.x;
-    y += arg.y;
-    z += arg.z;
-    return *this;
+    return (left.x < right.x) || ((left.x == right.x) && (left.y < right.y)) ||
+           ((left.x == right.x) && (left.y == right.y) && (left.z < right.z));
 }
 
-template<typename T>
-Vector3D<T> Vector3D<T>::operator + (const T &arg) const
+template <typename T>
+bool compare_vector_3d_xzy(const Vector3D<T> &left, const Vector3D<T> &right)
 {
-    return Vector3D<T>(x + arg, y + arg, z + arg);
+    return (left.x < right.x) || ((left.x == right.x) && (left.z < right.z)) ||
+    ((left.x == right.x) && (left.z == right.z) && (left.y < right.y));
 }
-
-template<typename T>
-Vector3D<T>& Vector3D<T>::operator += (const T &arg)
-{
-    x += arg;
-    y += arg;
-    z += arg;
-    return *this;
-}
-
-template<typename T>
-Vector3D<T> Vector3D<T>::operator - (const Vector3D<T> &arg) const
-{
-    return Vector3D<T>(x - arg.x, y - arg.y, z - arg.z);
-}
-
-template<typename T>
-Vector3D<T>& Vector3D<T>::operator -= (const Vector3D<T> &arg)
-{
-    x -= arg.x;
-    y -= arg.y;
-    z -= arg.z;
-    return *this;
-}
-
-template<typename T>
-Vector3D<T> Vector3D<T>::operator - (const T &arg) const
-{
-    return Vector3D<T>(x - arg, y - arg, z - arg);
-}
-
-template<typename T>
-Vector3D<T>& Vector3D<T>::operator -= (const T &arg)
-{
-    x -= arg;
-    y -= arg;
-    z -= arg;
-    return *this;
-}
-
-template<typename T>
-T Vector3D<T>::dot(const Vector3D<T> &arg)
-{
-    return x * arg.x + y * arg.y + z * arg.z;
-}
-
-template<typename T>
-Vector3D<T> Vector3D<T>::cross(const Vector3D<T> &arg)
-{
-    return Vector3D(y * arg.z - z * arg.y,
-                    z * arg.x - x * arg.z,
-                    x * arg.y - y * arg.x);
-}
-
-template<typename T>
-Vector3D<T> Vector3D<T>::operator * (const T &arg) const
-{
-    return Vector3D<T>(x * arg, y * arg, z * arg);
-}
-
-template<typename T>
-Vector3D<T>& Vector3D<T>::operator *= (const T &arg)
-{
-    x *= arg;
-    y *= arg;
-    z *= arg;
-    return *this;
-}
-
-template<typename T>
-Vector3D<T> Vector3D<T>::operator / (const T &arg) const
-{
-    return Vector3D<T>(x / arg, y / arg, z / arg);
-}
-
-template<typename T>
-Vector3D<T>& Vector3D<T>::operator /= (const T &arg)
-{
-    x /= arg;
-    y /= arg;
-    z /= arg;
-    return *this;
-}
-
-/*
-template<typename T>
-bool Vector3D<T>::operator < (const Vector3D<T> &arg) const
-{
-    return (x < arg.x) || (x == arg.x && y < arg.y) || (x == arg.x && y == arg.y && z < arg.z);
-}
-*/
-
-template<typename T>
-Vector2D<T> Vector2D<T>::operator + (const Vector2D<T> &arg) const
-{
-    return Vector2D<T>(x + arg.x, y + arg.y);
-}
-
-template<typename T>
-Vector2D<T>& Vector2D<T>::operator += (const Vector2D<T> &arg)
-{
-    x += arg.x;
-    y += arg.y;
-    return *this;
-}
-
-template<typename T>
-Vector2D<T> Vector2D<T>::operator + (const T &arg) const
-{
-    return Vector2D<T>(x + arg, y + arg);
-}
-
-template<typename T>
-Vector2D<T>& Vector2D<T>::operator += (const T &arg)
-{
-    x += arg;
-    y += arg;
-    return *this;
-}
-
-template<typename T>
-Vector2D<T> Vector2D<T>::operator - (const Vector2D<T> &arg) const
-{
-    return Vector2D<T>(x - arg.x, y - arg.y);
-}
-
-template<typename T>
-Vector2D<T>& Vector2D<T>::operator -= (const Vector2D<T> &arg)
-{
-    x -= arg.x;
-    y -= arg.y;
-    return *this;
-}
-
-template<typename T>
-Vector2D<T> Vector2D<T>::operator - (const T &arg) const
-{
-    return Vector2D<T>(x - arg, y - arg);
-}
-
-template<typename T>
-Vector2D<T>& Vector2D<T>::operator -= (const T &arg)
-{
-    x -= arg;
-    y -= arg;
-    return *this;
-}
-
-template<typename T>
-T Vector2D<T>::dot(const Vector2D<T> &arg)
-{
-    return x * arg.x + y * arg.y;
-}
-
-template<typename T>
-Vector3D<T> Vector2D<T>::cross(const Vector2D<T> &arg)
-{
-    return Vector3D<T>(0, 0, x * arg.y - arg.x * y);
-}
-
-template<typename T>
-Vector2D<T> Vector2D<T>::operator * (const T &arg) const
-{
-    return Vector2D<T>(x * arg, y * arg);
-}
-
-template<typename T>
-Vector2D<T>& Vector2D<T>::operator *= (const T &arg)
-{
-    x *= arg;
-    y *= arg;
-    return *this;
-}
-
-template<typename T>
-Vector2D<T> Vector2D<T>::operator / (const T &arg) const
-{
-    return Vector2D<T>(x / arg, y / arg);
-}
-
-template<typename T>
-Vector2D<T>& Vector2D<T>::operator /= (const T &arg)
-{
-    x /= arg;
-    y /= arg;
-    return *this;
-}
-
