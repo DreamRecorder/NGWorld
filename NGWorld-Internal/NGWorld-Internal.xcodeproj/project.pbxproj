@@ -21,6 +21,8 @@
 		E2A7172C1CDF0FA500751EAC /* quicklz.h in Headers */ = {isa = PBXBuildFile; fileRef = E2A7171E1CDF0FA500751EAC /* quicklz.h */; };
 		E2A7172D1CDF0FA500751EAC /* randgen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2A7171F1CDF0FA500751EAC /* randgen.cpp */; };
 		E2A7172E1CDF0FA500751EAC /* randgen.h in Headers */ = {isa = PBXBuildFile; fileRef = E2A717201CDF0FA500751EAC /* randgen.h */; };
+		E2BF84A71CE22D13008B9637 /* logger.h in Headers */ = {isa = PBXBuildFile; fileRef = E2BF84A61CE22D13008B9637 /* logger.h */; };
+		E2BF84A91CE22E78008B9637 /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2BF84A81CE22E78008B9637 /* logger.cpp */; };
 		E2F86FB01CDF2A0A00E4E1C6 /* lz4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2F86FAE1CDF2A0A00E4E1C6 /* lz4.cpp */; };
 		E2F86FB11CDF2A0A00E4E1C6 /* lz4.h in Headers */ = {isa = PBXBuildFile; fileRef = E2F86FAF1CDF2A0A00E4E1C6 /* lz4.h */; };
 /* End PBXBuildFile section */
@@ -41,6 +43,8 @@
 		E2A7171E1CDF0FA500751EAC /* quicklz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quicklz.h; sourceTree = "<group>"; };
 		E2A7171F1CDF0FA500751EAC /* randgen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = randgen.cpp; sourceTree = "<group>"; };
 		E2A717201CDF0FA500751EAC /* randgen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = randgen.h; sourceTree = "<group>"; };
+		E2BF84A61CE22D13008B9637 /* logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logger.h; sourceTree = "<group>"; };
+		E2BF84A81CE22E78008B9637 /* logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logger.cpp; sourceTree = "<group>"; };
 		E2F86FAE1CDF2A0A00E4E1C6 /* lz4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lz4.cpp; sourceTree = "<group>"; };
 		E2F86FAF1CDF2A0A00E4E1C6 /* lz4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lz4.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,6 +93,8 @@
 				E2A7171C1CDF0FA500751EAC /* fundamental_utility.h */,
 				E2A7171F1CDF0FA500751EAC /* randgen.cpp */,
 				E2A717201CDF0FA500751EAC /* randgen.h */,
+				E2BF84A61CE22D13008B9637 /* logger.h */,
+				E2BF84A81CE22E78008B9637 /* logger.cpp */,
 			);
 			name = "NGWorld-Internal";
 			sourceTree = "<group>";
@@ -126,6 +132,7 @@
 				E2F86FB11CDF2A0A00E4E1C6 /* lz4.h in Headers */,
 				E2A717231CDF0FA500751EAC /* compress.h in Headers */,
 				E27955A31CDF61C5004D8144 /* fundamental_types.h in Headers */,
+				E2BF84A71CE22D13008B9637 /* logger.h in Headers */,
 				E2A717261CDF0FA500751EAC /* fundamental_macros.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,6 +196,7 @@
 				E2F86FB01CDF2A0A00E4E1C6 /* lz4.cpp in Sources */,
 				E2A717271CDF0FA500751EAC /* fundamental_structure.cpp in Sources */,
 				E2A717221CDF0FA500751EAC /* compress.cpp in Sources */,
+				E2BF84A91CE22E78008B9637 /* logger.cpp in Sources */,
 				E2A717291CDF0FA500751EAC /* fundamental_utility.cpp in Sources */,
 				E2A7172D1CDF0FA500751EAC /* randgen.cpp in Sources */,
 				E2A7172B1CDF0FA500751EAC /* quicklz.cpp in Sources */,
