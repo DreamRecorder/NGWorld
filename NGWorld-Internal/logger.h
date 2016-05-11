@@ -30,25 +30,51 @@ enum LOG_LEVEL
 };
 
 #include <vector>
-#include <iostream>
+#include <string>
+#include <fstream>
+
+// 调试信息转发器: 抽象类
+class LoggerForwarder
+{
+public:
+    LoggerForwarder() {}
+    virtual ~LoggerForwarder() {}
+    virtual void forward_log(const std::string &str) = 0;
+};
+
+// 命令行输出
+class LoggerForwarderConsole : public LoggerForwarder
+{
+public:
+    void forward_log(const std::string &str);
+};
+
+// 文件输出
+class LoggerForwarderFile : public LoggerForwarder
+{
+private:
+    const std::string m_file_name;
+    std::ofstream m_fout;
+public:
+    LoggerForwarderFile();
+    LoggerForwarderFile(const std::string &file_name);
+    ~LoggerForwarderFile();
+    void forward_log(const std::string &str);
+};
 
 class Logger
 {
 private:
+    static const int logger_forwarder_max_buffer = 8;
     std::vector<std::string> m_logs;
-    std::string m_log_fname;
-    bool m_write_to_os, m_write_to_file;
-
+    std::vector<std::pair<LoggerForwarder*, bool> > m_log_forwarders;
+    int m_last_write_position;
+    
 public:
     Logger();
     ~Logger();
     
     void log(const std::string &str, LOG_LEVEL level = LOG_LEVEL_VERBOSE);
 };
-
-extern std::ostream verbosestream;
-extern std::ostream infostream;
-extern std::ostream warningstream;
-extern std::ostream errorstream;
 
 #endif

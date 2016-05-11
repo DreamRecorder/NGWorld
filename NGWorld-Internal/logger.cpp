@@ -18,54 +18,107 @@
 
 #include "logger.h"
 #include <fstream>
+#include <iostream>
 #include <sstream>
 using namespace std;
 
+void LoggerForwarderConsole::forward_log(const std::string &str)
+{
+    // 直接向终端吐出
+    cout << str;
+}
+
+LoggerForwarderFile::LoggerForwarderFile() : m_file_name("ngworld.log")
+{
+    m_fout.open(m_file_name.c_str(), ios::out | ios::app);
+    m_fout << endl << "NGWorld logger started" << endl;
+}
+
+LoggerForwarderFile::LoggerForwarderFile(const string &file_name) : m_file_name(file_name)
+{
+    m_fout.open(m_file_name.c_str(), ios::out | ios::app);
+    m_fout << endl << "NGWorld logger started" << endl;
+}
+
+LoggerForwarderFile::~LoggerForwarderFile()
+{
+    m_fout.close();
+}
+
+void LoggerForwarderFile::forward_log(const std::string &str)
+{
+    m_fout << str;
+}
+
+// 使用默认配置，一个终端转发器，一个文件转发器
 Logger::Logger()
 {
-    m_log_fname = "ngworld.log";
-    m_write_to_file = true;
+    m_log_forwarders.push_back(make_pair(new LoggerForwarderConsole(), true));
+    m_log_forwarders.push_back(make_pair(new LoggerForwarderFile(), false));
+    m_last_write_position = -1;
 }
 
 Logger::~Logger()
 {
-    if (m_write_to_file)
+    int i, size = (int)m_logs.size();
+    for (vector<pair<LoggerForwarder*, bool> >::iterator it = m_log_forwarders.begin(); it != m_log_forwarders.end(); ++it)
     {
-        ofstream fout(m_log_fname, ios::app);
-        for(vector<string>::iterator it = m_logs.begin(); it != m_logs.end(); ++it)
-            fout << *it; // 消息内已有endl
-        fout.close();
+        if (it->second == false)
+        {
+            for (i = m_last_write_position+1; i < size; ++i)
+            {
+                it->first->forward_log(m_logs[i]);
+            }
+        }
+        delete it->first;
+
     }
 }
 
 void Logger::log(const string &str, LOG_LEVEL level)
 {
+    // 制作消息头
     stringstream ss;
+    ss.precision(5);
+    string result;
     ss << '[' << clock() * 1.0 / CLOCKS_PER_SEC << "] ";
-    ostream *os;
-    switch(level)
+    switch (level)
     {
         case LOG_LEVEL_VERBOSE:
             ss << "(VV) ";
-            os = &verbosestream;
             break;
         case LOG_LEVEL_INFO:
             ss << "(II) ";
-            os = &infostream;
             break;
         case LOG_LEVEL_WARNING:
             ss << "(WW) ";
-            os = &warningstream;
             break;
         case LOG_LEVEL_ERROR:
             ss << "(EE) ";
-            os = &errorstream;
             break;
         default:
             ss << "(??) ";
-            os = &errorstream;
     }
     ss << str << endl;
-    m_logs.push_back(ss.str());
-    (*os) << ss.str();
+    result = ss.str();
+    m_logs.push_back(result);
+    
+    // 转发消息
+    int i, size = (int)m_logs.size();
+    for (vector<pair<LoggerForwarder*, bool> >::iterator it = m_log_forwarders.begin(); it != m_log_forwarders.end(); ++it)
+    {
+        if (it->second) // 实时输出
+        {
+            it->first->forward_log(result);
+        }
+        else if (size - m_last_write_position > logger_forwarder_max_buffer) // 超过缓存大小之后输出
+        {
+            for (i = m_last_write_position+1; i < size; ++i)
+            {
+                it->first->forward_log(m_logs[i]);
+            }
+        }
+    }
+    if (size - m_last_write_position > logger_forwarder_max_buffer)
+        m_last_write_position = size-1;
 }

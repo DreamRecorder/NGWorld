@@ -234,6 +234,5 @@ xcuserdata/
 #
 #tm_build_errors
 
-####
-# UNKNOWN: recommended by others, but I can't discover what these files are
-#
+# NGWorld Working Directory Garbage
+ngworld.log
