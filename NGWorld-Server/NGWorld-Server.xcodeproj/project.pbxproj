@@ -212,6 +212,8 @@
 		E2A716D81CDF0ECB00751EAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				HEADER_SEARCH_PATHS = "../NGWorld-Internal";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -220,6 +222,8 @@
 		E2A716D91CDF0ECB00751EAC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				GCC_C_LANGUAGE_STANDARD = c99;
 				HEADER_SEARCH_PATHS = "../NGWorld-Internal";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -244,6 +248,7 @@
 				E2A716D91CDF0ECB00751EAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
