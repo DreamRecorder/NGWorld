@@ -7,16 +7,34 @@
 
 ## 目录结构
 
-* 3rdparty: 第三方代码，例如QuickLZ、lZ4等。
 * client: 客户端
 * internal: 客户端与服务端共享的代码
 * server: 服务端
+
+## 编译
+
+### UNIX-like操作系统
+
+NGWorld根目录下有Makefile，使用`make [options] <target>`命令编译。
+
+| Target名称 | 说明        |
+|------------|-------------|
+| Client     | 编译客户端  |
+| Server     | 编译服务端  |
+| TestBench  | 编译测试模块|
+
+选项有
+
+| 选项名称   | 说明        |
+|------------|-------------|
+| NOWARNING  | 禁止所有警告|
+| DEBUG      | 调试模式    |
 
 ## 代码风格
 
 NGWorld使用Allman/BSD缩进风格，采用4个空格作为缩进字符。一律采用全小写+下划线的命名方式，例如`void generate_tree_at(v3s32 pos);`。类的私有变量前添加`m_`前缀。
 
-NGWorld**严禁**下列风格的代码进入自主代码库(即3rd Party Code**除外**，例如QuickLZ、LZ4等)：
+NGWorld**严禁**下列风格的代码进入自主代码库(即3rd Party Code**除外**)：
 
 * 将大括号直接写在前一行的后面
 * 采用骆驼峰命名法
