@@ -8,16 +8,9 @@
 # Assets Library
 assets/
 
-# CMake Files
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
-Makefile
-cmake_install.cmake
-install_manifest.txt
-
 # Local handy unit test sources
 *unittest.cpp
+testbench
 
 # OS X Finder cache
 .DS_Store
@@ -27,3 +20,7 @@ ngworld.log
 
 # astyle backup
 *.orig
+
+# Binary & Object Files
+obj/
+bin/
