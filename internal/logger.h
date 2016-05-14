@@ -25,7 +25,7 @@ enum LOG_LEVEL
     LOG_LEVEL_INFO,
     LOG_LEVEL_WARNING,
     LOG_LEVEL_ERROR,
-    
+
     LOG_LEVLE_COUNT
 };
 
@@ -78,14 +78,14 @@ private:
     std::string m_forwarder_buffer[forwarder_buffer_size];
     int m_forward_buf_position;
     std::vector<std::pair<LoggerForwarder*, bool> > m_forwarders;
-    
+
     // 防止频繁地分配和释放内存，提前一次性分配好缓存
     char m_message_buffer[128];
-    
+
 public:
     Logger();
     ~Logger();
-    
+
     void log(const std::string &str, LOG_LEVEL level = LOG_LEVEL_VERBOSE);
 };
 

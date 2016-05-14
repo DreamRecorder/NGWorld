@@ -36,5 +36,5 @@ template <typename T>
 bool compare_vector_3d_xzy(const Vector3D<T> &left, const Vector3D<T> &right)
 {
     return (left.x < right.x) || ((left.x == right.x) && (left.z < right.z)) ||
-    ((left.x == right.x) && (left.z == right.z) && (left.y < right.y));
+           ((left.x == right.x) && (left.z == right.z) && (left.y < right.y));
 }

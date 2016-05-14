@@ -81,7 +81,7 @@ void Logger::log(const string &str, LOG_LEVEL level)
         p = new char[str.size() + 20];
     sprintf(p, "[%.3lf] %s %s\n", clock() * 1.0 / CLOCKS_PER_SEC, log_level_string[level], str.c_str());
     m_forwarder_buffer[m_forward_buf_position++] = (string)p;
-    
+
     // 转发消息
     int i;
     for (vector<pair<LoggerForwarder*, bool> >::iterator it = m_forwarders.begin(); it != m_forwarders.end(); ++it)
@@ -96,10 +96,10 @@ void Logger::log(const string &str, LOG_LEVEL level)
                 it->first->forward_log(m_forwarder_buffer[i]);
         }
     }
-    
+
     if (m_forward_buf_position == forwarder_buffer_size)
         m_forward_buf_position = 0;
-    
+
     if(str.size() > 100)
         delete p;
 }

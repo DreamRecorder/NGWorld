@@ -17,7 +17,7 @@
  */
 
 #include "compress.h"
-#include "quicklz.h"
+#include <quicklz/quicklz.h>
 #include <cstdlib>
 #include <cstring>
 using namespace std;

@@ -5,6 +5,13 @@
 
 本项目的源代码采用[GPLv3](http://www.gnu.org/licenses/gpl.html)许可协议发布，请遵守和尊重。
 
+## 目录结构
+
+* 3rdparty: 第三方代码，例如QuickLZ、lZ4等。
+* client: 客户端
+* internal: 客户端与服务端共享的代码
+* server: 服务端
+
 ## 代码风格
 
 NGWorld使用Allman/BSD缩进风格，采用4个空格作为缩进字符。一律采用全小写+下划线的命名方式，例如`void generate_tree_at(v3s32 pos);`。类的私有变量前添加`m_`前缀。
