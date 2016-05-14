@@ -73,10 +73,11 @@ public:
 class Logger
 {
 private:
-    static const int logger_forwarder_max_buffer = 8;
-    std::vector<std::string> m_logs;
-    std::vector<std::pair<LoggerForwarder*, bool> > m_log_forwarders;
-    int m_last_forward_position;
+    // 消息转发
+    static const int forwarder_buffer_size = 8;
+    std::string m_forwarder_buffer[forwarder_buffer_size];
+    int m_forward_buf_position;
+    std::vector<std::pair<LoggerForwarder*, bool> > m_forwarders;
     
     // 防止频繁地分配和释放内存，提前一次性分配好缓存
     char m_message_buffer[128];

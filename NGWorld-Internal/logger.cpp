@@ -53,25 +53,23 @@ void LoggerForwarderFile::forward_log(const std::string &str)
 // 使用默认配置，一个终端转发器，一个文件转发器
 Logger::Logger()
 {
-    m_log_forwarders.push_back(make_pair(new LoggerForwarderConsole(), true));
-    m_log_forwarders.push_back(make_pair(new LoggerForwarderFile(), false));
-    m_last_forward_position = -1;
+    m_forwarders.push_back(make_pair(new LoggerForwarderConsole(), true));
+    m_forwarders.push_back(make_pair(new LoggerForwarderFile(), false));
+    m_forward_buf_position = 0;
 }
 
 Logger::~Logger()
 {
-    int i, size = (int)m_logs.size();
-    for (vector<pair<LoggerForwarder*, bool> >::iterator it = m_log_forwarders.begin(); it != m_log_forwarders.end(); ++it)
+    vector<pair<LoggerForwarder*, bool> >::iterator it;
+    int i;
+    for (it = m_forwarders.begin(); it != m_forwarders.end(); ++it)
     {
         if (it->second == false)
         {
-            for (i = m_last_forward_position+1; i < size; ++i)
-            {
-                it->first->forward_log(m_logs[i]);
-            }
+            for (i = 0; i < m_forward_buf_position; i++)
+                it->first->forward_log(m_forwarder_buffer[i]);
         }
         delete it->first;
-
     }
 }
 
@@ -82,26 +80,25 @@ void Logger::log(const string &str, LOG_LEVEL level)
     if(str.size() > 100) // 对于长消息，临时分配缓存
         p = new char[str.size() + 20];
     sprintf(p, "[%.3lf] %s %s\n", clock() * 1.0 / CLOCKS_PER_SEC, log_level_string[level], str.c_str());
-    m_logs.push_back((string)p);
+    m_forwarder_buffer[m_forward_buf_position++] = (string)p;
     
     // 转发消息
-    int i, size = (int)m_logs.size();
-    for (vector<pair<LoggerForwarder*, bool> >::iterator it = m_log_forwarders.begin(); it != m_log_forwarders.end(); ++it)
+    int i;
+    for (vector<pair<LoggerForwarder*, bool> >::iterator it = m_forwarders.begin(); it != m_forwarders.end(); ++it)
     {
         if (it->second) // 实时输出
         {
             it->first->forward_log(p);
         }
-        else if (size - m_last_forward_position > logger_forwarder_max_buffer) // 超过缓存大小之后输出
+        else if (m_forward_buf_position == forwarder_buffer_size) // dump缓存
         {
-            for (i = m_last_forward_position+1; i < size; ++i)
-            {
-                it->first->forward_log(m_logs[i]);
-            }
+            for (i = 0; i < forwarder_buffer_size; i++)
+                it->first->forward_log(m_forwarder_buffer[i]);
         }
     }
-    if (size - m_last_forward_position > logger_forwarder_max_buffer)
-        m_last_forward_position = size-1;
+    
+    if (m_forward_buf_position == forwarder_buffer_size)
+        m_forward_buf_position = 0;
     
     if(str.size() > 100)
         delete p;
