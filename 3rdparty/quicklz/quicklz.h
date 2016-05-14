@@ -77,7 +77,7 @@
 
 namespace QuickLZ
 {
-    
+
     // hash entry
     struct qlz_hash_compress
     {
@@ -91,9 +91,9 @@ namespace QuickLZ
 #else
         const unsigned char *offset[QLZ_POINTERS];
 #endif
-        
+
     };
-    
+
     struct qlz_hash_decompress
     {
 #if QLZ_COMPRESSION_LEVEL == 1
@@ -102,8 +102,8 @@ namespace QuickLZ
         const unsigned char *offset[QLZ_POINTERS];
 #endif
     };
-    
-    
+
+
     // states
     struct qlz_state_compress
     {
@@ -114,8 +114,8 @@ namespace QuickLZ
         qlz_hash_compress hash[QLZ_HASH_VALUES];
         unsigned char hash_counter[QLZ_HASH_VALUES];
     };
-    
-    
+
+
 #if QLZ_COMPRESSION_LEVEL == 1 || QLZ_COMPRESSION_LEVEL == 2
     struct qlz_state_decompress
     {
@@ -138,7 +138,7 @@ namespace QuickLZ
         size_t stream_counter;
     };
 #endif
-    
+
     extern "C"
     {
         size_t qlz_size_decompressed(const char *source);
@@ -147,7 +147,7 @@ namespace QuickLZ
         size_t qlz_decompress(const char *source, void *destination, qlz_state_decompress *state);
         int qlz_get_setting(int setting);
     }
-    
+
 }
 
 #endif
