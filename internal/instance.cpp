@@ -29,7 +29,7 @@ void init_global_variables()
     rng = new MersenneRandGen();
 #endif
 
-    logger = new Logger();
+    logger = new Logger(LOG_LEVEL_VERBOSE);
 }
 
 void free_global_variables()

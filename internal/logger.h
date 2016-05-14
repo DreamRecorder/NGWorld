@@ -19,6 +19,10 @@
 #ifndef _LOGGER_H_
 #define _LOGGER_H_
 
+#include <vector>
+#include <string>
+#include <fstream>
+
 enum LOG_LEVEL
 {
     LOG_LEVEL_VERBOSE,
@@ -37,11 +41,6 @@ static const char log_level_string[][5] =
     "(EE)", // LOG_LEVEL_ERROR
 };
 
-#include <vector>
-#include <string>
-#include <fstream>
-
-// 调试信息转发器: 抽象类
 class LoggerForwarder
 {
 public:
@@ -50,14 +49,12 @@ public:
     virtual void forward_log(const std::string &str) = 0;
 };
 
-// 命令行输出
 class LoggerForwarderConsole : public LoggerForwarder
 {
 public:
     void forward_log(const std::string &str);
 };
 
-// 文件输出
 class LoggerForwarderFile : public LoggerForwarder
 {
 private:
@@ -73,17 +70,19 @@ public:
 class Logger
 {
 private:
-    // 消息转发
     static const int forwarder_buffer_size = 8;
     std::string m_forwarder_buffer[forwarder_buffer_size];
     int m_forward_buf_position;
     std::vector<std::pair<LoggerForwarder*, bool> > m_forwarders;
+    LOG_LEVEL m_notice_level;
 
-    // 防止频繁地分配和释放内存，提前一次性分配好缓存
+    // 在调制消息头的过程中，防止频繁地分配和释放内存，
+    // 提前一次性分配好一个长度为128字节的缓存空间。
+    // 在不够用的情况下，再临时分配和释放所需的内存。
     char m_message_buffer[128];
 
 public:
-    Logger();
+    Logger(LOG_LEVEL least_notice_level = LOG_LEVEL_INFO);
     ~Logger();
 
     void log(const std::string &str, LOG_LEVEL level = LOG_LEVEL_VERBOSE);

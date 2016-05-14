@@ -24,7 +24,6 @@ using namespace std;
 
 void LoggerForwarderConsole::forward_log(const std::string &str)
 {
-    // 直接向终端吐出
     cout << str;
 }
 
@@ -51,11 +50,12 @@ void LoggerForwarderFile::forward_log(const std::string &str)
 }
 
 // 使用默认配置，一个终端转发器，一个文件转发器
-Logger::Logger()
+Logger::Logger(LOG_LEVEL least_notice_level)
 {
     m_forwarders.push_back(make_pair(new LoggerForwarderConsole(), true));
     m_forwarders.push_back(make_pair(new LoggerForwarderFile(), false));
     m_forward_buf_position = 0;
+    m_notice_level = least_notice_level;
 }
 
 Logger::~Logger()
@@ -75,6 +75,9 @@ Logger::~Logger()
 
 void Logger::log(const string &str, LOG_LEVEL level)
 {
+    if(level < m_notice_level)
+        return;
+
     // 制作消息头
     char *p = m_message_buffer;
     if(str.size() > 100) // 对于长消息，临时分配缓存
