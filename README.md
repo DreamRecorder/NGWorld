@@ -30,21 +30,43 @@ NGWorld根目录下有Makefile，使用`make [options] <target>`命令编译。
 | NOWARNING  | 禁止所有警告|
 | DEBUG      | 调试模式    |
 
+### Microsoft Windows操作系统
+
+由于开发者并不使用Microsoft Windows，即使编写的代码理论上可以在Microsoft Windows操作系统上通过编译，开发者并不能事实上确定在Microsoft Windows上NGWorld可以正常运行。同时，也存在一定程度上，Microsoft在过去某一段时间内对某些人物、团体、功能支持的偏见、傲慢、怠慢和态度令开发者个人在情绪上的愤怒。所以，
+
+**Microsoft Windows暂时不被支持**
+
 ## 代码风格
 
-NGWorld使用Allman/BSD缩进风格，采用4个空格作为缩进字符。一律采用全小写+下划线的命名方式，例如`void generate_tree_at(v3s32 pos);`。类的私有变量前添加`m_`前缀。
+NGWorld使用Allman/BSD缩进风格，采用4个空格作为缩进字符。类名使用骆驼峰命名法，函数名、变量名一律采用全小写+下划线的命名方式，类的私有变量前添加`m_`前缀。以下代码是合格的。
+
+```C++
+// 类
+class WorldGenerator
+{
+private:
+	u64 m_seed;
+public:
+	void generate_tree_at(v3s32 pos);
+};
+
+// 函数声明
+void init_crc32_table();
+```
 
 NGWorld**严禁**下列风格的代码进入自主代码库(即3rd Party Code**除外**)：
 
 * 将大括号直接写在前一行的后面
-* 采用骆驼峰命名法
+* 变量名或函数名采用骆驼峰命名法
 * 另外一切具有TanCC语言风格的代码
 
 反面案例:
+
 ```C++
+// 违规使用TanCC语法和违规的大括号放置风格
 void main(int argc, char **argv) {
-    int MonthsOfYear = 12;
-    return 0;
+	// 变量名违规地采用了骆驼峰命名法
+	int MonthsOfYear = 12;
+	return 0;
 }
 ```
-
