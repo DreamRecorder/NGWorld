@@ -29,6 +29,14 @@ enum LOG_LEVEL
     LOG_LEVLE_COUNT
 };
 
+static const char log_level_string[][5] =
+{
+    "(VB)", // LOG_LEVEL_VERBOSE
+    "(II)", // LOG_LEVEL_INFO
+    "(WW)", // LOG_LEVEL_WARNING
+    "(EE)", // LOG_LEVEL_ERROR
+};
+
 #include <vector>
 #include <string>
 #include <fstream>
@@ -68,7 +76,10 @@ private:
     static const int logger_forwarder_max_buffer = 8;
     std::vector<std::string> m_logs;
     std::vector<std::pair<LoggerForwarder*, bool> > m_log_forwarders;
-    int m_last_write_position;
+    int m_last_forward_position;
+    
+    // 防止频繁地分配和释放内存，提前一次性分配好缓存
+    char m_message_buffer[128];
     
 public:
     Logger();

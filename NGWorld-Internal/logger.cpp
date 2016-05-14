@@ -55,7 +55,7 @@ Logger::Logger()
 {
     m_log_forwarders.push_back(make_pair(new LoggerForwarderConsole(), true));
     m_log_forwarders.push_back(make_pair(new LoggerForwarderFile(), false));
-    m_last_write_position = -1;
+    m_last_forward_position = -1;
 }
 
 Logger::~Logger()
@@ -65,7 +65,7 @@ Logger::~Logger()
     {
         if (it->second == false)
         {
-            for (i = m_last_write_position+1; i < size; ++i)
+            for (i = m_last_forward_position+1; i < size; ++i)
             {
                 it->first->forward_log(m_logs[i]);
             }
@@ -78,30 +78,11 @@ Logger::~Logger()
 void Logger::log(const string &str, LOG_LEVEL level)
 {
     // 制作消息头
-    stringstream ss;
-    ss.precision(5);
-    string result;
-    ss << '[' << clock() * 1.0 / CLOCKS_PER_SEC << "] ";
-    switch (level)
-    {
-        case LOG_LEVEL_VERBOSE:
-            ss << "(VV) ";
-            break;
-        case LOG_LEVEL_INFO:
-            ss << "(II) ";
-            break;
-        case LOG_LEVEL_WARNING:
-            ss << "(WW) ";
-            break;
-        case LOG_LEVEL_ERROR:
-            ss << "(EE) ";
-            break;
-        default:
-            ss << "(??) ";
-    }
-    ss << str << endl;
-    result = ss.str();
-    m_logs.push_back(result);
+    char *p = m_message_buffer;
+    if(str.size() > 100) // 对于长消息，临时分配缓存
+        p = new char[str.size() + 20];
+    sprintf(p, "[%.3lf] %s %s\n", clock() * 1.0 / CLOCKS_PER_SEC, log_level_string[level], str.c_str());
+    m_logs.push_back((string)p);
     
     // 转发消息
     int i, size = (int)m_logs.size();
@@ -109,16 +90,19 @@ void Logger::log(const string &str, LOG_LEVEL level)
     {
         if (it->second) // 实时输出
         {
-            it->first->forward_log(result);
+            it->first->forward_log(p);
         }
-        else if (size - m_last_write_position > logger_forwarder_max_buffer) // 超过缓存大小之后输出
+        else if (size - m_last_forward_position > logger_forwarder_max_buffer) // 超过缓存大小之后输出
         {
-            for (i = m_last_write_position+1; i < size; ++i)
+            for (i = m_last_forward_position+1; i < size; ++i)
             {
                 it->first->forward_log(m_logs[i]);
             }
         }
     }
-    if (size - m_last_write_position > logger_forwarder_max_buffer)
-        m_last_write_position = size-1;
+    if (size - m_last_forward_position > logger_forwarder_max_buffer)
+        m_last_forward_position = size-1;
+    
+    if(str.size() > 100)
+        delete p;
 }
